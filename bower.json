@@ -1,0 +1,29 @@
+{
+  "name": "react-2",
+  "version": "0.0.0",
+  "description": "react-2",
+  "main": "dist/react-2.min.js",
+  "homepage": "https://github.com/jrgns/react-2",
+  "authors": [
+    "Jrgns"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "react",
+    "react-component"
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".editorconfig",
+    ".gitignore",
+    "package.json",
+    "src",
+    "node_modules",
+    "example",
+    "test"
+  ]
+}
