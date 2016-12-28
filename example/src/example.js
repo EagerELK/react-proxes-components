@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-var React2 = require('react-2');
+var ProxesComponents = require('react-proxes-components');
 
 var App = React.createClass({
 	render () {
 		return (
 			<div>
-				<React2 />
+				<ProxesComponents />
 			</div>
 		);
 	}

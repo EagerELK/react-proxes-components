@@ -5,7 +5,7 @@ import Documents from './documents';
 import IndexList from './index-list';
 import ESStore from './es-store';
 
-class React2 extends React.Component {
+class ProxesComponents extends React.Component {
   render() {
     var store = new ESStore();
 
@@ -19,7 +19,7 @@ class React2 extends React.Component {
             <Storage store={store}/>
           </div>
           <div className="col-md-4">
-            <Documents store={store} pollInterval="5000"/>
+            <Documents store={store} pollInterval="30000"/>
           </div>
         </div>
         <div className="row">
@@ -32,4 +32,4 @@ class React2 extends React.Component {
   }
 }
 
-export default React2;
+export default ProxesComponents;
