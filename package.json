@@ -1,16 +1,16 @@
 {
-  "name": "react-2",
-  "version": "1.0.0",
-  "description": "react-2",
-  "main": "lib/React2.js",
-  "author": "Jrgns",
-  "homepage": "https://github.com/jrgns/react-2",
+  "name": "react-proxes-components",
+  "version": "0.1.0",
+  "description": "Elasticsearch components for the ProxES project.",
+  "main": "lib/react-proxes-component.js",
+  "author": "Jurgens du Toit",
+  "homepage": "https://github.com/EagerELK/react-proxes-components",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jrgns/react-2.git"
+    "url": "https://github.com/EagerELK/react-proxes-components.git"
   },
   "bugs": {
-    "url": "https://github.com/jrgns/react-2/issues"
+    "url": "https://github.com/EagerELK/react-proxes-components/issues"
   },
   "dependencies": {
     "classnames": "^2.1.2",
@@ -45,6 +45,8 @@
   },
   "keywords": [
     "react",
-    "react-component"
+    "react-component",
+    "elasticsearch",
+    "proxes"
   ]
 }

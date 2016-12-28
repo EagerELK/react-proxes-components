@@ -1,11 +1,11 @@
 {
-  "name": "react-2",
-  "version": "0.0.0",
-  "description": "react-2",
-  "main": "dist/react-2.min.js",
-  "homepage": "https://github.com/jrgns/react-2",
+  "name": "react-proxes-components",
+  "version": "0.1.0",
+  "description": "Elasticsearch components for the ProxES project.",
+  "main": "dist/react-proxes-component.min.js",
+  "homepage": "https://github.com/EagerELK/react-proxes-components",
   "authors": [
-    "Jrgns"
+    "Jurgens du Toit"
   ],
   "moduleType": [
     "amd",
@@ -14,9 +14,11 @@
   ],
   "keywords": [
     "react",
-    "react-component"
+    "react-component",
+    "elasticsearch",
+    "proxes"
   ],
-  "license": "MIT",
+  "license": "LGPLv3",
   "ignore": [
     ".editorconfig",
     ".gitignore",
