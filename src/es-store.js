@@ -3,7 +3,7 @@ import TimeAgo from 'time-ago';
 
 class ESStore {
   constructor() {
-    this.cache = {}
+    this.cache = {};
   }
 
   remove(url) {

@@ -39,7 +39,7 @@ class IndexList extends ESPanel {
           {indexRows}
         </tbody>
       </table>
-    )
+    );
   }
 
   rowItem(row, index) {
