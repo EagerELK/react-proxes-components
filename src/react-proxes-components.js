@@ -33,3 +33,4 @@ class ProxesComponents extends React.Component {
 }
 
 export default ProxesComponents;
+export { React, Health, Storage, Documents, IndexList, ESStore };
