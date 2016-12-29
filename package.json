@@ -1,6 +1,6 @@
 {
   "name": "react-proxes-components",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Elasticsearch components for the ProxES project.",
   "main": "lib/react-proxes-component.js",
   "author": "Jurgens du Toit",
@@ -28,7 +28,7 @@
     "react-dom": "^0.14.0"
   },
   "peerDependencies": {
-    "react": "^0.14.0"
+    "react": "^15.2.1"
   },
   "browserify-shim": {
     "react": "global:React"
