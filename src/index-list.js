@@ -44,7 +44,7 @@ class IndexList extends ESPanel {
 
   rowItem(row, index) {
     return (
-      <tr>
+      <tr key={row.name}>
         <td>{row.name}</td>
         <td>{numeral(row.primaries.docs.count).format('0,0')}</td>
         <td>{numeral(row.primaries.store.size_in_bytes).format('0.0b')}</td>
