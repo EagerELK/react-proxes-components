@@ -13,18 +13,18 @@ class ProxesComponents extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-4">
-            <Health store={store}/>
+            <Health store={store} pollInterval={this.props.pollInterval} />
           </div>
           <div className="col-md-4">
-            <Storage store={store}/>
+            <Storage store={store} pollInterval={this.props.pollInterval} />
           </div>
           <div className="col-md-4">
-            <Documents store={store} pollInterval="30000"/>
+            <Documents store={store} pollInterval={this.props.pollInterval} />
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
-            <IndexList store={store}/>
+            <IndexList store={store} pollInterval={this.props.pollInterval} />
           </div>
         </div>
       </div>

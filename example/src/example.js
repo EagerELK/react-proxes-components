@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-var ProxesComponents = require('react-proxes-components');
+import ProxesComponents from 'react-proxes-components';
 
 var App = React.createClass({
 	render () {
 		return (
 			<div>
-				<ProxesComponents />
+				<ProxesComponents pollInterval="30000" />
 			</div>
 		);
 	}
