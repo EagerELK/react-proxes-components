@@ -1,5 +1,5 @@
 import React from 'react';
-import TimeAgo from 'time-ago';
+import TimeAgo from './timeAgo';
 
 class UpdateFooter extends React.Component {
   render() {
@@ -10,7 +10,7 @@ class UpdateFooter extends React.Component {
         <a href="#" onClick={this.props.updateCallback}>
           <i className="fa fa-refresh"></i>
         </a> <span title={localISOTime}>
-          Updated {TimeAgo().ago(this.props.lastUpdated)}
+          Updated {TimeAgo(this.props.lastUpdated)}
         </span>
       </div>
     );
