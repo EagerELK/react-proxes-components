@@ -1,5 +1,5 @@
 import axios from 'axios';
-import TimeAgo from 'time-ago';
+import TimeAgo from './timeAgo';
 
 class ESStore {
   constructor() {
