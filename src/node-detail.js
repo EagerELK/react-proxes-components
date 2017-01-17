@@ -22,7 +22,7 @@ class NodeDetail extends ESPanel {
 
       var nodeRows = rows.map(this.rowItem);
     } else {
-      var nodeRows = (<tr><td colSpan="4">No Nodes</td></tr>);
+      var nodeRows = (<tr><td colSpan="3">No Nodes</td></tr>);
     }
 
     return (

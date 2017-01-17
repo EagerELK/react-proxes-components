@@ -6,7 +6,7 @@ var App = React.createClass({
 	render () {
 		return (
 			<div>
-				<ProxesComponents pollInterval="1200000" />
+				<ProxesComponents pollInterval="30000" />
 			</div>
 		);
 	}

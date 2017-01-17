@@ -3,10 +3,11 @@ import Health from './health';
 import Storage from './storage';
 import Documents from './documents';
 import IndexList from './index-list';
-import TableField from './table-field';
 import NodeInfo from './node-info';
 import NodeDetail from './node-detail';
+import NodeDetailTable from './node-detail-table';
 import ESStore from './es-store';
+import TableColumn from './table-column';
 
 class ProxesComponents extends React.Component {
   render() {
@@ -14,36 +15,54 @@ class ProxesComponents extends React.Component {
 
     return (
       <div>
+
         <div className="row">
           <div className="col-md-4">
-            <Health store={store} pollInterval={this.props.pollInterval} />
+            <Health store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
           <div className="col-md-4">
-            <Storage store={store} pollInterval={this.props.pollInterval} />
+            <Storage store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
           <div className="col-md-4">
-            <Documents store={store} pollInterval={this.props.pollInterval} />
+            <Documents store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
-            <IndexList store={store} pollInterval={this.props.pollInterval} />
+            <IndexList store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
-            <NodeInfo store={store} pollInterval={this.props.pollInterval} />
+            <NodeInfo store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} >
+              <TableColumn name="Name" source="name" />
+              <TableColumn name="Host" source="host" />
+              <TableColumn name="Version" source="version" />
+              <TableColumn name="OS Name" source="os.name" />
+              <TableColumn name="Java Version" source="jvm.version" />
+            </NodeInfo>
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
-            <NodeDetail store={store} pollInterval={this.props.pollInterval} />
+            <NodeDetail store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-md-12">
+            <NodeDetailTable store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url}>
+              <TableColumn name="Name" source="name" />
+              <TableColumn name="indices.docs.count" source="indices.docs.count" />
+              <TableColumn name="indices.store.size_in_bytes" source="indices.store.size_in_bytes" format="size" />
+            </NodeDetailTable>
+          </div>
+        </div>
+
       </div>
     );
   }
 }
 
 export default ProxesComponents;
-export { React, Health, Storage, Documents, IndexList, ESStore };
+export { React, Health, Storage, Documents, IndexList, ESStore, TableColumn, NodeDetailTable };
