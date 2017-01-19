@@ -5,7 +5,6 @@ import Documents from './documents';
 import IndexList from './index-list';
 import NodeInfo from './node-info';
 import NodeDetail from './node-detail';
-import NodeDetailTable from './node-detail-table';
 import ESStore from './es-store';
 import TableColumn from './table-column';
 
@@ -51,11 +50,11 @@ class ProxesComponents extends React.Component {
 
         <div className="row">
           <div className="col-md-12">
-            <NodeDetailTable store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url}>
+            <NodeDetail store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url}>
               <TableColumn name="Name" source="name" />
               <TableColumn name="indices.docs.count" source="indices.docs.count" />
               <TableColumn name="indices.store.size_in_bytes" source="indices.store.size_in_bytes" format="size" />
-            </NodeDetailTable>
+            </NodeDetail>
           </div>
         </div>
 
@@ -65,4 +64,4 @@ class ProxesComponents extends React.Component {
 }
 
 export default ProxesComponents;
-export { React, Health, Storage, Documents, IndexList, ESStore, TableColumn, NodeDetailTable };
+export { React, Health, Storage, Documents, IndexList, ESStore, TableColumn, NodeInfo, NodeDetail };

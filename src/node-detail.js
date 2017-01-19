@@ -1,60 +1,34 @@
 import React from 'react';
-import ESPanel from './es-panel';
-import numeral from 'numeral';
+import ESTable from './es-table';
 
-class NodeDetail extends ESPanel {
+class NodeDetailTable extends ESTable {
   getHeading() {
-    return (<h4>Node Detail</h4>);
+    return (<h4>Node Detail ESTable</h4>);
   }
 
-  getBody() {
+  getRows() {
     var nodes;
     try {
       nodes = this.state.data.nodes;
-    } catch (e) { }
-
-    if (nodes) {
-      var rows = [];
-      Object.keys(nodes).map(function (value, index) {
-        rows.push(nodes[value]);
-        rows[index].name = value;
-      });
-
-      var nodeRows = rows.map(this.rowItem);
-    } else {
-      var nodeRows = (<tr><td colSpan="3">No Nodes</td></tr>);
+    } catch (e) {
+      return [];
     }
 
-    return (
-      <table className="table table-responsive table-striped">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>indices.docs.count</th>
-          <th>indices.store.size_in_bytes</th>
-        </tr>
-        </thead>
-        <tbody>
-          {nodeRows}
-        </tbody>
-      </table>
-    );
-  }
+    if (!nodes) return [];
 
-  rowItem(row, index) {
-    return (
-      <tr key={row.name}>
-        <td>{row.name}</td>
-        <td>{row.indices.docs.count}</td>
-        <td>{numeral(row.indices.store.size_in_bytes).format('0b')}</td>
-      </tr>
-    );
+    var rows = [];
+    Object.keys(nodes).map(function (value, index) {
+      rows.push(nodes[value]);
+      rows[index].name = value;
+    });
+
+    return rows;
   }
 }
 
-NodeDetail.defaultProps = {
+NodeDetailTable.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
   data_path: '/_nodes/stats'
 };
 
-export default NodeDetail;
+export default NodeDetailTable;
