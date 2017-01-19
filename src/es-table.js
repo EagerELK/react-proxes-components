@@ -1,6 +1,7 @@
 import React from 'react';
 import ESPanel from './es-panel';
 import numeral from 'numeral';
+import moment from 'moment';
 
 class ESTable extends ESPanel {
   columnHeader(column) {
@@ -25,7 +26,7 @@ class ESTable extends ESPanel {
         break;
 
       case 'date':
-        return 'Momentum';
+        return moment(value).format('DD MM YYYY');
         break;
 
       case 'size':
@@ -45,7 +46,6 @@ class ESTable extends ESPanel {
       return (
         <tr key={row.name}>
           {this.props.children.map( (column) => {
-
             return (
               <td key={column.props.source}>
                 {this.columnValue(row, column)}
@@ -60,24 +60,23 @@ class ESTable extends ESPanel {
 
     return (
       <table className="table table-responsive table-striped">
-            <thead>
-            <tr>
-              {this.props.children.map( (column) => {
-                return (<th key={column.props.source}>{this.columnHeader(column)}</th>);
-              })}
-            </tr>
-            </thead>
-            <tbody>
+        <thead>
+          <tr>
+            {this.props.children.map( (column) => {
+              return (<th key={column.props.source}>{this.columnHeader(column)}</th>);
+            })}
+          </tr>
+        </thead>
+        <tbody>
           {rows}
-            </tbody>
-          </table>
+        </tbody>
+      </table>
     );
   }
 
   getAlternateBody() {
     return (<tr><td colSpan={React.Children.count(this.props.children)}>No data</td></tr>);
   }
-
 }
 
 export default ESTable;

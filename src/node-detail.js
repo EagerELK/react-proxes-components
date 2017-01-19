@@ -3,7 +3,7 @@ import ESTable from './es-table';
 
 class NodeDetailTable extends ESTable {
   getHeading() {
-    return (<h4>Node Detail ESTable</h4>);
+    return (<h4>Node Detail</h4>);
   }
 
   getRows() {
