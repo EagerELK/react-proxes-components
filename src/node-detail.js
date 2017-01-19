@@ -1,7 +1,7 @@
 import React from 'react';
 import ESTable from './es-table';
 
-class NodeDetailTable extends ESTable {
+class NodeDetail extends ESTable {
   getHeading() {
     return (<h4>Node Detail</h4>);
   }
@@ -26,9 +26,9 @@ class NodeDetailTable extends ESTable {
   }
 }
 
-NodeDetailTable.defaultProps = {
+NodeDetail.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
   data_path: '/_nodes/stats'
 };
 
-export default NodeDetailTable;
+export default NodeDetail;
