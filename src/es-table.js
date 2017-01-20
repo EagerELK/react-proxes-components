@@ -26,7 +26,7 @@ class ESTable extends ESPanel {
         break;
 
       case 'date':
-        return moment(value).format('DD MM YYYY');
+        return moment(value).format('YYYY-mm-dd HH:mm:ss');
         break;
 
       case 'size':
