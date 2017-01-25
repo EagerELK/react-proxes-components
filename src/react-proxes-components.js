@@ -7,6 +7,7 @@ import NodeInfo from './node-info';
 import NodeDetail from './node-detail';
 import ESStore from './es-store';
 import TableColumn from './table-column';
+import BigNumber from './big-number';
 
 class ProxesComponents extends React.Component {
   render() {
@@ -25,6 +26,26 @@ class ProxesComponents extends React.Component {
           <div className="col-md-4">
             <Documents store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
+        </div>
+        <div className="row">
+          <div className="col-md-4">
+            <BigNumber store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} title="Cluster Available Space" data_path="/_nodes/stats" source="nodes" field="fs.total.available_in_bytes" />
+          </div>
+          <div className="col-md-4">
+            <BigNumber store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} title="Total Cluster Memory" data_path="/_nodes/stats" source="nodes" field="jvm.mem.heap_max_in_bytes" />
+          </div>
+          <div className="col-md-4">
+            <BigNumber store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} title="User Cluster Memory" data_path="/_nodes/stats" source="nodes" field="jvm.mem.heap_used_in_bytes" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-4">
+            <BigNumber store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} title="Total OS Memory" data_path="/_nodes/stats" source="nodes" field="os.mem.total_in_bytes" />
+          </div>
+          <div className="col-md-4">
+            <BigNumber store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} title="Used OS Memory" data_path="/_nodes/stats" source="nodes" field="os.mem.used_in_bytes" />
+          </div>
+          <div className="col-md-4"></div>
         </div>
         <div className="row">
           <div className="col-md-12">
