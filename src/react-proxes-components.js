@@ -7,6 +7,12 @@ import NodeInfo from './node-info';
 import NodeDetail from './node-detail';
 import ESStore from './es-store';
 import TableColumn from './table-column';
+import BigNumber from './big-number';
+import ClusterAvailableSpace from './cluster-available-space';
+import TotalClusterMemory from './total-cluster-memory';
+import UserClusterMemory from './user-cluster-memory';
+import TotalOSMemory from './total-os-memory';
+import UsedOSMemory from './used-os-memory';
 
 class ProxesComponents extends React.Component {
   render() {
@@ -51,6 +57,26 @@ class ProxesComponents extends React.Component {
             </NodeDetail>
           </div>
         </div>
+        <div className="row">
+          <div className="col-md-4">
+            <ClusterAvailableSpace store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+          <div className="col-md-4">
+            <TotalClusterMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+          <div className="col-md-4">
+            <UserClusterMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-4">
+            <TotalOSMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+          <div className="col-md-4">
+            <UsedOSMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+          <div className="col-md-4"></div>
+        </div>
 
       </div>
     );
@@ -58,4 +84,19 @@ class ProxesComponents extends React.Component {
 }
 
 export default ProxesComponents;
-export { React, Health, Storage, Documents, IndexList, ESStore, TableColumn, NodeInfo, NodeDetail };
+export {
+  React,
+  Health,
+  Storage,
+  Documents,
+  IndexList,
+  ESStore,
+  TableColumn,
+  NodeInfo,
+  NodeDetail,
+  ClusterAvailableSpace,
+  TotalClusterMemory,
+  UserClusterMemory,
+  TotalOSMemory,
+  UsedOSMemory
+};
