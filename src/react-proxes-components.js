@@ -10,7 +10,7 @@ import TableColumn from './table-column';
 import BigNumber from './big-number';
 import ClusterAvailableSpace from './cluster-available-space';
 import TotalClusterMemory from './total-cluster-memory';
-import UserClusterMemory from './user-cluster-memory';
+import UsedClusterMemory from './used-cluster-memory';
 import TotalOSMemory from './total-os-memory';
 import UsedOSMemory from './used-os-memory';
 
@@ -52,8 +52,12 @@ class ProxesComponents extends React.Component {
           <div className="col-md-12">
             <NodeDetail store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url}>
               <TableColumn name="Name" source="name" />
-              <TableColumn name="indices.docs.count" source="indices.docs.count" />
-              <TableColumn name="indices.store.size_in_bytes" source="indices.store.size_in_bytes" format="size" />
+              <TableColumn name="Documents" source="indices.docs.count" format="number" />
+              <TableColumn name="Segments" source="indices.segments.count" format="number" />
+              <TableColumn name="Storage" source="indices.store.size_in_bytes" format="size" />
+              <TableColumn name="Storage Available" source="fs.total.free_in_bytes" format="size" />
+              <TableColumn name="Memory Available" source="os.mem.free_in_bytes" format="size" />
+              <TableColumn name="Heap Size" source="jvm.mem.heap_max_in_bytes" format="size" />
             </NodeDetail>
           </div>
         </div>
@@ -65,7 +69,7 @@ class ProxesComponents extends React.Component {
             <TotalClusterMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
           <div className="col-md-4">
-            <UserClusterMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+            <UsedClusterMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
         </div>
         <div className="row">
@@ -96,7 +100,7 @@ export {
   NodeDetail,
   ClusterAvailableSpace,
   TotalClusterMemory,
-  UserClusterMemory,
+  UsedClusterMemory,
   TotalOSMemory,
   UsedOSMemory
 };
