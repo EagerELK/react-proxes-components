@@ -1,0 +1,9 @@
+Copyright (c) Jade IT cc
+
+React ProxES Components is an Open Source project licensed under the terms of
+the LGPLv3 license.  Please see <http://www.gnu.org/licenses/lgpl-3.0.html>
+for license text.
+
+A commercial-friendly license allowing private forks and modifications of
+React ProxES Components is available.  Please contact info@jadeit.co.za more
+detail.
