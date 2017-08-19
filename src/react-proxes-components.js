@@ -13,6 +13,7 @@ import TotalClusterMemory from './total-cluster-memory';
 import UsedClusterMemory from './used-cluster-memory';
 import TotalOSMemory from './total-os-memory';
 import UsedOSMemory from './used-os-memory';
+import ElasticsearchCall from './elasticsearch-call';
 
 class ProxesComponents extends React.Component {
   render() {
@@ -102,5 +103,6 @@ export {
   TotalClusterMemory,
   UsedClusterMemory,
   TotalOSMemory,
-  UsedOSMemory
+  UsedOSMemory,
+  ElasticsearchCall
 };
