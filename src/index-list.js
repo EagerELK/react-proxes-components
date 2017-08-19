@@ -1,10 +1,29 @@
 import React from 'react';
 import ESPanel from './es-panel';
+import UpdateFooter from './update-footer';
 import numeral from 'numeral';
+import List from "list.js"
 
 class IndexList extends ESPanel {
   getHeading() {
     return (<h4>Index Statistics</h4>);
+  }
+
+  componentDidMount() {
+    super.componentDidMount();
+    new List('index-list', { valueNames: [ 'name', 'documents', 'size', 'segments' ] });
+  }
+
+  render() {
+    return (
+      <div id="index-list" className="panel panel-default">
+        <div className="panel-heading">
+          {this.getHeading()}
+        </div>
+        {this.getBody()}
+        <UpdateFooter lastUpdated={this.state.last_updated} updateCallback={this.refresh}/>
+      </div>
+    );
   }
 
   getBody() {
@@ -26,29 +45,34 @@ class IndexList extends ESPanel {
     }
 
     return (
-      <table className="table table-responsive table-striped">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Number of Documents</th>
-          <th>Size</th>
-          <th>Number of Segments</th>
-        </tr>
-        </thead>
-        <tbody>
-          {indexRows}
-        </tbody>
-      </table>
+      [
+        <div className="panel-body">
+          <input type="search" className="search form-control" placeholder="Type here to filter shards" />
+        </div>,
+        <table className="table table-responsive table-striped table-condensed">
+          <thead>
+          <tr>
+            <th className="sort" role="button" data-sort="name">Name <i className="fa fa-sort" /></th>
+            <th className="sort" role="button" data-sort="documents">Number of Documents <i className="fa fa-sort" /></th>
+            <th className="sort" role="button" data-sort="size">Size <i className="fa fa-sort" /></th>
+            <th className="sort" role="button" data-sort="segments">Number of Segments <i className="fa fa-sort" /></th>
+          </tr>
+          </thead>
+          <tbody className="list">
+            {indexRows}
+          </tbody>
+        </table>
+      ]
     );
   }
 
   rowItem(row, index) {
     return (
       <tr key={row.name}>
-        <td>{row.name}</td>
-        <td>{numeral(row.primaries.docs.count).format('0,0')}</td>
-        <td>{numeral(row.primaries.store.size_in_bytes).format('0.0b')}</td>
-        <td>{numeral(row.primaries.segments.count).format('0,0')}</td>
+        <td className="name">{row.name}</td>
+        <td className="documents">{numeral(row.primaries.docs.count).format('0,0')}</td>
+        <td className="size">{numeral(row.primaries.store.size_in_bytes).format('0.0b')}</td>
+        <td className="segments">{numeral(row.primaries.segments.count).format('0,0')}</td>
       </tr>
     );
   }

@@ -63,6 +63,12 @@ class ESPanel extends React.Component {
     );
   }
 
+  getFooter() {
+    return (
+      <UpdateFooter lastUpdated={this.state.last_updated} updateCallback={this.refresh} />
+    );
+  }
+
   render() {
     return (
       <div className="panel panel-default">
@@ -70,7 +76,9 @@ class ESPanel extends React.Component {
           {this.getHeading()}
         </div>
         {this.getBody()}
-        <UpdateFooter lastUpdated={this.state.last_updated} updateCallback={this.refresh}/>
+        <div className="panel-footer">
+          {this.getFooter()}
+        </div>
       </div>
     );
   }

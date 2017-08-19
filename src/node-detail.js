@@ -16,13 +16,10 @@ class NodeDetail extends ESTable {
 
     if (!nodes) return [];
 
-    var rows = [];
-    Object.keys(nodes).map(function (value, index) {
-      rows.push(nodes[value]);
-      rows[index].name = value;
+    return Object.keys(nodes).map(function (value, index) {
+      nodes[value].name = value;
+      return nodes[value];
     });
-
-    return rows;
   }
 }
 

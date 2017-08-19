@@ -20,8 +20,10 @@ class ESTable extends ESPanel {
     var value = this.getDescendantProp(row, source);
 
     switch (format) {
-
       case 'string':
+        if (value.constructor === Array) {
+          value = value.join(', ')
+        }
         return value;
         break;
 

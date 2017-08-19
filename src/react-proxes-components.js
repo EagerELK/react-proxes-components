@@ -6,6 +6,8 @@ import IndexList from './index-list';
 import NodeInfo from './node-info';
 import NodeDetail from './node-detail';
 import ESStore from './es-store';
+import ESTable from './es-table';
+import UpdateFooter from './update-footer';
 import TableColumn from './table-column';
 import BigNumber from './big-number';
 import ClusterAvailableSpace from './cluster-available-space';
@@ -96,6 +98,8 @@ export {
   Documents,
   IndexList,
   ESStore,
+  ESTable,
+  UpdateFooter,
   TableColumn,
   NodeInfo,
   NodeDetail,
