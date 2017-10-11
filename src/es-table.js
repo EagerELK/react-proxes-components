@@ -10,7 +10,7 @@ class ESTable extends ESPanel {
     return column.props.source.charAt(0).toUpperCase() + column.props.source.slice(1);
   }
 
-  getDescendantProp (obj, path) {
+  getDescendantProp(obj, path) {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj);
   }
 

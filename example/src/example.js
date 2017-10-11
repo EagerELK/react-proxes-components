@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ProxesComponents from 'react-proxes-components';
 
-var App = React.createClass({
+class App extends React.Component {
   render () {
     return (
       <div>
@@ -10,6 +10,6 @@ var App = React.createClass({
       </div>
     );
   }
-});
+};
 
 ReactDOM.render(<App />, document.getElementById('app'));

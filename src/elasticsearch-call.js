@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 class ElasticsearchCall extends React.Component {
@@ -35,9 +36,9 @@ class ElasticsearchCall extends React.Component {
 }
 
 ElasticsearchCall.propTypes = {
-  action: React.PropTypes.string.isRequired,
-  method: React.PropTypes.oneOf(['get', 'post', 'put', 'delete']).isRequired,
-  endpoint: React.PropTypes.string.isRequired,
+  action: PropTypes.string.isRequired,
+  method: PropTypes.oneOf(['get', 'post', 'put', 'delete']).isRequired,
+  endpoint: PropTypes.string.isRequired,
 };
 ElasticsearchCall.defaultProps = {
   method: 'get'

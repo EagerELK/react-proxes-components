@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ESPanel from './es-panel';
 import numeral from 'numeral';
 
@@ -42,9 +43,9 @@ class BigNumber extends ESPanel {
 }
 
 BigNumber.propTypes = {
-  data_path: React.PropTypes.string.isRequired,
-  source: React.PropTypes.string.isRequired,
-  field: React.PropTypes.string.isRequired,
+  data_path: PropTypes.string.isRequired,
+  source: PropTypes.string.isRequired,
+  field: PropTypes.string.isRequired,
 };
 
 BigNumber.defaultProps = {
