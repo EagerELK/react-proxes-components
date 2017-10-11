@@ -4,6 +4,12 @@ import numeral from 'numeral';
 import moment from 'moment';
 
 class ESTable extends ESPanel {
+  constructor(props) {
+    super(props);
+    this.state.sort_by = 'name';
+    this.state.sort_order = 'asc';
+  }
+
   columnHeader(column) {
     if (column.props.hasOwnProperty('name')) return column.props.name;
 
@@ -41,8 +47,28 @@ class ESTable extends ESPanel {
     }
   }
 
+  compareRows(a, b) {
+    if (typeof this.state.sort_by == 'undefined') {
+      return 0;
+    }
+
+    a = this.getDescendantProp(a, this.state.sort_by);
+    b = this.getDescendantProp(b, this.state.sort_by);
+
+    var result = 0;
+    if (a < b) {
+      result = -1;
+    } else if (a > b) {
+      result = 1;
+    }
+    if (this.state.sort_order != 'asc') {
+      result = result * -1;
+    }
+    return result;
+  }
+
   getBody() {
-    var rows = this.getRows();
+    var rows = this.getRows().sort(this.compareRows.bind(this));
 
     rows = rows.map( (row) => {
       return (
@@ -56,16 +82,23 @@ class ESTable extends ESPanel {
           })}
         </tr>
       );
-    });
+    }, this);
 
     if (rows.length == 0) rows = this.getAlternateBody();
 
     return (
+      <div className="panel-body">
+        <input type="search" className="search form-control" placeholder="Type here to filter indices" />
+      </div>,
       <table className="table table-responsive table-striped">
         <thead>
           <tr>
             {this.props.children.map( (column) => {
-              return (<th key={column.props.source}>{this.columnHeader(column)}</th>);
+              return (
+                <th key={column.props.source} role="button" onClick={this.sortBy.bind(this)} data-sort={column.props.source}>
+                  {this.columnHeader(column)} <i className="fa fa-sort" />
+                </th>
+              );
             })}
           </tr>
         </thead>
@@ -78,6 +111,16 @@ class ESTable extends ESPanel {
 
   getAlternateBody() {
     return (<tr><td colSpan={React.Children.count(this.props.children)}>No data</td></tr>);
+  }
+
+  sortBy(event) {
+    if (this.state.sort_by == event.target.dataset['sort']) {
+      this.state.sort_order = this.state.sort_order == 'asc' ? 'desc' : 'asc';
+    } else {
+      this.state.sort_order = 'asc';
+    }
+    this.state.sort_by = event.target.dataset['sort'];
+    this.forceUpdate();
   }
 }
 
