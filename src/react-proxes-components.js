@@ -37,7 +37,12 @@ class ProxesComponents extends React.Component {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <IndexList store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+            <IndexList store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url}>
+              <TableColumn name="Name" source="name"/>
+              <TableColumn name="Documents" source="primaries.docs.count" format="number"/>
+              <TableColumn name="Size" source="primaries.store.size_in_bytes" format="size"/>
+              <TableColumn name="Segments" source="primaries.segments.count" format="number"/>
+            </IndexList>
           </div>
         </div>
         <div className="row">
