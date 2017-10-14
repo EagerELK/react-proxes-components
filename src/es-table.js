@@ -70,42 +70,46 @@ class ESTable extends ESPanel {
   getBody() {
     var rows = this.getRows().sort(this.compareRows.bind(this));
 
-    rows = rows.map( (row) => {
-      return (
-        <tr key={row.name}>
-          {this.props.children.map( (column) => {
-            return (
-              <td key={column.props.source}>
-                {this.columnValue(row, column)}
-              </td>
-            );
-          })}
-        </tr>
-      );
-    }, this);
+    rows = rows.map(this.getRowItem.bind(this));
 
     if (rows.length == 0) rows = this.getAlternateBody();
 
     return (
-      <div className="panel-body">
-        <input type="search" className="search form-control" placeholder="Type here to filter indices" />
-      </div>,
-      <table className="table table-responsive table-striped">
-        <thead>
-          <tr>
-            {this.props.children.map( (column) => {
-              return (
-                <th key={column.props.source} role="button" onClick={this.sortBy.bind(this)} data-sort={column.props.source}>
-                  {this.columnHeader(column)} <i className="fa fa-sort" />
-                </th>
-              );
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+      <div>
+        <div className="panel-body">
+          <input type="search" className="search form-control" placeholder="Start typing to filter" />
+        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              {this.props.children.map( (column) => {
+                return (
+                  <th key={column.props.source} role="button" onClick={this.sortBy.bind(this)} data-sort={column.props.source}>
+                    {this.columnHeader(column)} <i className="fa fa-sort" />
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  getRowItem(row) {
+    return (
+      <tr key={row.name}>
+        {this.props.children.map( (column) => {
+          return (
+            <td key={column.props.source}>
+              {this.columnValue(row, column)}
+            </td>
+          );
+        })}
+      </tr>
     );
   }
 
