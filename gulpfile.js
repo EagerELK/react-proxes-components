@@ -17,8 +17,7 @@ var taskConfig = {
 		dependencies: [
 			'classnames',
 			'react',
-			'react-dom',
-			'list.js'
+			'react-dom'
 		],
 		lib: 'lib'
 	},
