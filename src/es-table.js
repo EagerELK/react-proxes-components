@@ -8,6 +8,7 @@ class ESTable extends ESPanel {
     super(props);
     this.state.sort_by = 'name';
     this.state.sort_order = 'asc';
+    this.state.search = '';
   }
 
   columnHeader(column) {
@@ -67,8 +68,22 @@ class ESTable extends ESPanel {
     return result;
   }
 
+  findRow(row) {
+    var search = this.state.search;
+    if (search == '') {
+      return true;
+    }
+
+    return this.props.children.some((column) => {
+      var value = this.getDescendantProp(row, column.props.source);
+      return value.toString().indexOf(search) !== -1;
+    });
+  }
+
   getBody() {
-    var rows = this.getRows().sort(this.compareRows.bind(this));
+    var rows = this.getRows()
+      .filter(this.findRow.bind(this))
+      .sort(this.compareRows.bind(this));
 
     rows = rows.map(this.getRowItem.bind(this));
 
@@ -77,7 +92,7 @@ class ESTable extends ESPanel {
     return (
       <div>
         <div className="panel-body">
-          <input type="search" className="search form-control" placeholder="Start typing to filter" />
+          <input type="search" className="search form-control" placeholder="Start typing to filter" onChange={this.filterRows.bind(this)}/>
         </div>
         <table className="table">
           <thead>
@@ -115,6 +130,11 @@ class ESTable extends ESPanel {
 
   getAlternateBody() {
     return (<tr><td colSpan={React.Children.count(this.props.children)}>No data</td></tr>);
+  }
+
+  filterRows(event) {
+    this.state.search = event.target.value;
+    this.forceUpdate();
   }
 
   sortBy(event) {
