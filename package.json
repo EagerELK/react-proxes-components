@@ -1,6 +1,6 @@
 {
   "name": "react-proxes-components",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Elasticsearch components for the ProxES project.",
   "main": "lib/react-proxes-component.js",
   "author": "Jurgens du Toit",
