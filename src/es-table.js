@@ -2,6 +2,7 @@ import React from 'react';
 import ESPanel from './es-panel';
 import numeral from 'numeral';
 import moment from 'moment';
+import naturalCompare from 'string-natural-compare';
 
 class ESTable extends ESPanel {
   constructor(props) {
@@ -56,12 +57,7 @@ class ESTable extends ESPanel {
     a = this.getDescendantProp(a, this.state.sort_by);
     b = this.getDescendantProp(b, this.state.sort_by);
 
-    var result = 0;
-    if (a < b) {
-      result = -1;
-    } else if (a > b) {
-      result = 1;
-    }
+    var result = naturalCompare(a, b);
     if (this.state.sort_order != 'asc') {
       result = result * -1;
     }
