@@ -18,8 +18,10 @@ class NodeInfo extends ESTable {
 
     var rows = [];
     Object.keys(nodes).map(function (value, index) {
+      if (typeof(rows[index].name) === 'undefined') {
+        rows[index].name = value;
+      }
       rows.push(nodes[value]);
-      rows[index].name = value;
     });
 
     return rows;

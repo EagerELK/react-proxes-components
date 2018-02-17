@@ -17,7 +17,9 @@ class NodeDetail extends ESTable {
     if (!nodes) return [];
 
     return Object.keys(nodes).map(function (value, index) {
-      nodes[value].name = value;
+      if (typeof(nodes[value].name) === 'undefined') {
+        nodes[value].name = value;
+      }
       return nodes[value];
     });
   }
