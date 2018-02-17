@@ -38,7 +38,7 @@ var App = (function (_React$Component) {
       return _react2['default'].createElement(
         'div',
         null,
-        _react2['default'].createElement(_reactProxesComponents2['default'], { pollInterval: '30000' })
+        _react2['default'].createElement(_reactProxesComponents2['default'], { pollInterval: '30000', elasticsearch_url: 'https://elastic.pushshift.io/' })
       );
     }
   }]);
