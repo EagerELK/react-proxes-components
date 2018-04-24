@@ -13,6 +13,7 @@ class IndexList extends ESTable {
     try {
       indices = this.state.data.indices;
     } catch (e) {
+      console.log(e);
       return [];
     }
 

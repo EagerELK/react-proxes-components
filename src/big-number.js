@@ -20,23 +20,25 @@ class BigNumber extends ESPanel {
     return path.split('.').reduce((acc, part) => acc && acc[part], obj);
   }
 
-  getBody() {
-    var total;
+  getValue() {
     try {
-      if (this.state.hasOwnProperty('data') || this.state.data.hasOwnProperty(this.props.source)) {
-        total = 0;
-
+      if (this.state.hasOwnProperty('data')) {
         let source = this.getDescendantProp(this.state.data, this.props.source);
-
-        for (let i in source) {
-          total += this.getDescendantProp(source[i], this.props.field);
+        if (typeof this.calculateValue == 'undefined') {
+          return source;
         }
+        return this.calculateValue.call(this, source);
       }
-    } catch(e) { }
+    } catch(e) {
+      console.log(e);
+    }
+  }
 
+  getBody() {
+    var value = this.getValue();
     return (
       <div className="panel-body">
-        <p className="lead">{total ? numeral(total).format('0.0b') : 'Unknown'}</p>
+        <p className="lead">{value ? numeral(value).format(this.props.format) : 'Unknown'}</p>
       </div>
     );
   }
@@ -45,11 +47,13 @@ class BigNumber extends ESPanel {
 BigNumber.propTypes = {
   data_path: PropTypes.string.isRequired,
   source: PropTypes.string.isRequired,
-  field: PropTypes.string.isRequired,
+  field: PropTypes.string,
+  format: PropTypes.string,
 };
 
 BigNumber.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
+  format: '0.0b',
 };
 
 export default BigNumber;

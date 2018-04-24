@@ -11,6 +11,7 @@ class NodeInfo extends ESTable {
     try {
       nodes = this.state.data.nodes;
     } catch (e) {
+      console.log(e);
       return [];
     }
 

@@ -8,6 +8,20 @@ class TotalClusterMemory extends BigNumber {
       <h4><i className={icon}></i> Total Cluster Memory</h4>
     );
   }
+
+  calculateValue(source) {
+    let total;
+    try {
+      total = 0;
+      for (let i in source) {
+        let value = this.getDescendantProp(source[i], this.props.field);
+        total += value;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    return total;
+  }
 }
 
 TotalClusterMemory.defaultProps = {
@@ -15,6 +29,7 @@ TotalClusterMemory.defaultProps = {
   data_path: '/_nodes/stats',
   source: 'nodes',
   field: 'jvm.mem.heap_max_in_bytes',
+  format: '0.0b',
 };
 
 export default TotalClusterMemory;

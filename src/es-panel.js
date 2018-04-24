@@ -17,7 +17,9 @@ class ESPanel extends React.Component {
       this.props.store = new ESStore();
     }
 
+    // Refresh the state so that the Last Updated shows accurately
     setInterval(this.refreshLastUpdated.bind(this), 10 * 1000);
+    // Refresh the data we cached
     if (this.props.pollInterval) {
         setInterval(this.refresh, this.props.pollInterval);
     }
