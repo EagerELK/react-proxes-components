@@ -6,17 +6,24 @@ class ESPanel extends React.Component {
   constructor(props) {
     super(props);
 
-    this.refresh = this.refresh.bind(this);
-
     this.state = {
       data: {},
       last_updated: new Date()
     };
 
-    if (this.props.store == undefined) {
+    if (typeof this.props.store == 'undefined') {
       this.props.store = new ESStore();
     }
 
+    this.refresh = this.refresh.bind(this);
+  }
+
+  refreshLastUpdated() {
+    this.setState(this.state);
+  }
+
+  componentDidMount() {
+    this.loadData();
     // Refresh the state so that the Last Updated shows accurately
     setInterval(this.refreshLastUpdated.bind(this), 10 * 1000);
     // Refresh the data we cached
@@ -25,24 +32,16 @@ class ESPanel extends React.Component {
     }
   }
 
-  refreshLastUpdated() {
-    this.setState(this.state);
-  }
-
   loadData() {
-    var _this = this;
     this.props.store.get(
-      this.props.elasticsearch_url + this.props.data_path
-    ).then(function (response) {
-      _this.setState({
-        data: response.data,
-        last_updated: new Date()
-      });
-    });
-  }
-
-  componentDidMount() {
-    this.loadData();
+      this.props.elasticsearch_url + this.props.data_path,
+      function (response) {
+        this.setState({
+          data: response.data,
+          last_updated: new Date()
+        });
+      }.bind(this)
+    );
   }
 
   refresh(e) {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import inflight from 'inflight';
 import TimeAgo from './timeAgo';
 
 class ESStore {
@@ -10,9 +11,20 @@ class ESStore {
     delete this.cache[url];
   }
 
-  get(url) {
-    this.cache[url] = this.cache.hasOwnProperty(url) ? this.cache[url] : axios.get(url);
-    return this.cache[url];
+  get(url, callback) {
+    if (this.cache.hasOwnProperty(url)) {
+      callback.call(null, this.cache[url]);
+    }
+
+    callback = inflight(url, callback);
+    if (!callback) {
+      return;
+    }
+
+    axios.get(url).then(function(response) {
+      this.cache[url] = response;
+      callback.call(null, this.cache[url]);
+    }.bind(this));
   }
 }
 
