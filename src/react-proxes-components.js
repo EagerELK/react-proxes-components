@@ -15,39 +15,50 @@ import TotalClusterMemory from './total-cluster-memory';
 import UsedClusterMemory from './used-cluster-memory';
 import TotalOSMemory from './total-os-memory';
 import UsedOSMemory from './used-os-memory';
+import IndexingRate from './indexing-rate';
 import ElasticsearchCall from './elasticsearch-call';
 
 class ProxesComponents extends React.Component {
   render() {
-    var store = new ESStore();
+    var store = new ESStore(this.props.pollInterval);
 
     return (
       <div>
 
         <div className="row">
           <div className="col-md-4">
-            <Health store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+            <Health store={store} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
           <div className="col-md-4">
-            <Storage store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+            <Storage store={store} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
           <div className="col-md-4">
-            <Documents store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+            <Documents store={store} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
         </div>
         <div className="row">
-          <div className="col-md-12">
-            <IndexList store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url}>
-              <TableColumn name="Name" source="name"/>
-              <TableColumn name="Documents" source="primaries.docs.count" format="number"/>
-              <TableColumn name="Size" source="primaries.store.size_in_bytes" format="size"/>
-              <TableColumn name="Segments" source="primaries.segments.count" format="number"/>
-            </IndexList>
+          <div className="col-md-4">
+            <ClusterAvailableSpace store={store} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+          <div className="col-md-4">
+            <TotalClusterMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+          <div className="col-md-4">
+            <UsedClusterMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
         </div>
         <div className="row">
+          <div className="col-md-4">
+            <TotalOSMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+          <div className="col-md-4">
+            <UsedOSMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
+          </div>
+          <div className="col-md-4"></div>
+        </div>
+        <div className="row">
           <div className="col-md-12">
-            <NodeInfo store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} >
+            <NodeInfo store={store} elasticsearch_url={this.props.elasticsearch_url} >
               <TableColumn name="Name" source="name" />
               <TableColumn name="Host" source="host" />
               <TableColumn name="Version" source="version" />
@@ -58,7 +69,7 @@ class ProxesComponents extends React.Component {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <NodeDetail store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url}>
+            <NodeDetail store={store} elasticsearch_url={this.props.elasticsearch_url}>
               <TableColumn name="Name" source="name" />
               <TableColumn name="Documents" source="indices.docs.count" format="number" />
               <TableColumn name="Segments" source="indices.segments.count" format="number" />
@@ -70,26 +81,15 @@ class ProxesComponents extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-4">
-            <ClusterAvailableSpace store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
-          </div>
-          <div className="col-md-4">
-            <TotalClusterMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
-          </div>
-          <div className="col-md-4">
-            <UsedClusterMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
+          <div className="col-md-12">
+            <IndexList store={store} elasticsearch_url={this.props.elasticsearch_url}>
+              <TableColumn name="Name" source="name"/>
+              <TableColumn name="Documents" source="primaries.docs.count" format="number"/>
+              <TableColumn name="Size" source="primaries.store.size_in_bytes" format="size"/>
+              <TableColumn name="Segments" source="primaries.segments.count" format="number"/>
+            </IndexList>
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-4">
-            <TotalOSMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
-          </div>
-          <div className="col-md-4">
-            <UsedOSMemory store={store} pollInterval={this.props.pollInterval} elasticsearch_url={this.props.elasticsearch_url} />
-          </div>
-          <div className="col-md-4"></div>
-        </div>
-
       </div>
     );
   }
