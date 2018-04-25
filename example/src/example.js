@@ -6,7 +6,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <ProxesComponents pollInterval="30000" />
+        <ProxesComponents pollInterval="30" />
       </div>
     );
   }
