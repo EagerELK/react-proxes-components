@@ -2,11 +2,8 @@ import React from 'react';
 import BigNumber from './big-number';
 
 class Documents extends BigNumber {
-  getHeading() {
-    var icon = this.state.data.status == 'unknown' ? 'fa fa-question' : 'fa fa-files-o';
-    return (
-      <h4><i className={icon}></i> Documents</h4>
-    );
+  getSecondary() {
+    return 'Documents';
   }
 }
 
@@ -15,6 +12,9 @@ Documents.defaultProps = {
   data_path: '/_stats',
   source: '_all.total.docs.count',
   format: '0,0',
+  panel_type: 'primary',
+  icon: 'fa-files-o',
+  title: 'Documents',
 };
 
 export default Documents;

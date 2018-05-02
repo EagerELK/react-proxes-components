@@ -11,10 +11,8 @@ import UpdateFooter from './update-footer';
 import TableColumn from './table-column';
 import BigNumber from './big-number';
 import ClusterAvailableSpace from './cluster-available-space';
-import TotalClusterMemory from './total-cluster-memory';
-import UsedClusterMemory from './used-cluster-memory';
-import TotalOSMemory from './total-os-memory';
-import UsedOSMemory from './used-os-memory';
+import ClusterMemory from './cluster-memory';
+import OSMemory from './os-memory';
 import IndexingRate from './indexing-rate';
 import ElasticsearchCall from './elasticsearch-call';
 
@@ -41,20 +39,11 @@ class ProxesComponents extends React.Component {
             <ClusterAvailableSpace store={store} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
           <div className="col-md-4">
-            <TotalClusterMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
+            <ClusterMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
           <div className="col-md-4">
-            <UsedClusterMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
+            <OSMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
-        </div>
-        <div className="row">
-          <div className="col-md-4">
-            <TotalOSMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
-          </div>
-          <div className="col-md-4">
-            <UsedOSMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />
-          </div>
-          <div className="col-md-4"></div>
         </div>
         <div className="row">
           <div className="col-md-12">
@@ -109,9 +98,7 @@ export {
   NodeInfo,
   NodeDetail,
   ClusterAvailableSpace,
-  TotalClusterMemory,
-  UsedClusterMemory,
-  TotalOSMemory,
-  UsedOSMemory,
+  ClusterMemory,
+  OSMemory,
   ElasticsearchCall
 };

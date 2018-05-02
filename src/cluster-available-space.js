@@ -2,13 +2,6 @@ import React from 'react';
 import BigNumber from './big-number';
 
 class ClusterAvailableSpace extends BigNumber {
-  getHeading() {
-    var icon = this.state.data.status == 'unknown' ? 'fa fa-question' : 'fa fa-folder';
-    return (
-      <h4><i className={icon}></i> Cluster Available Space</h4>
-    );
-  }
-
   calculateValue(source) {
     let total;
     try {
@@ -22,6 +15,15 @@ class ClusterAvailableSpace extends BigNumber {
     }
     return total;
   }
+
+  getSecondary() {
+    try {
+      return 'On ' + this.state.data._nodes.total + ' nodes';
+    } catch (e) {
+      console.log(e);
+    }
+    return 'Calculating...';
+  }
 }
 
 ClusterAvailableSpace.defaultProps = {
@@ -30,6 +32,9 @@ ClusterAvailableSpace.defaultProps = {
   source: 'nodes',
   field: 'fs.total.available_in_bytes',
   format: '0.0b',
+  panel_type: 'info',
+  title: 'Available Space',
+  icon: 'fa-hdd-o',
 };
 
 export default ClusterAvailableSpace;
