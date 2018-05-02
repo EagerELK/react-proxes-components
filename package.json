@@ -1,6 +1,6 @@
 {
   "name": "react-proxes-components",
-  "version": "0.3.6",
+  "version": "0.4.0",
   "description": "Elasticsearch components for the ProxES project.",
   "main": "lib/react-proxes-component.js",
   "author": "Jurgens du Toit",
@@ -37,8 +37,9 @@
   },
   "scripts": {
     "build": "gulp clean && NODE_ENV=production gulp build",
-    "examples": "gulp dev:server",
+    "bump": "gulp clean && NODE_ENV=production gulp bump",
     "lint": "eslint ./; true",
+    "examples": "gulp dev:server",
     "publish:site": "NODE_ENV=production gulp publish:examples",
     "release": "NODE_ENV=production gulp release",
     "start": "gulp dev",
