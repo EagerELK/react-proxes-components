@@ -28,15 +28,17 @@ class ESPanel extends React.Component {
   loadData() {
     let hit = this.props.store.get(
       this.props.elasticsearch_url + this.props.data_path,
-      function (response) {
-        this.setState({
-          data: response.data,
-        });
-      }.bind(this)
+      this.dataDidLoad.bind(this)
     );
     if (hit == false) {
-      this.setState({last_updated: new Date()});
+      this.setState({ last_updated: new Date() });
     }
+  }
+
+  dataDidLoad(response) {
+    this.setState({
+      data: response.data,
+    });
   }
 
   refresh(e) {

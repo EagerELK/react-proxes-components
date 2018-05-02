@@ -2,6 +2,7 @@ import React from 'react';
 import Health from './health';
 import Storage from './storage';
 import Documents from './documents';
+import Nodes from './nodes';
 import IndexList from './index-list';
 import NodeInfo from './node-info';
 import NodeDetail from './node-detail';
@@ -36,7 +37,7 @@ class ProxesComponents extends React.Component {
         </div>
         <div className="row">
           <div className="col-md-4">
-            <ClusterAvailableSpace store={store} elasticsearch_url={this.props.elasticsearch_url} />
+            <Nodes store={store} elasticsearch_url={this.props.elasticsearch_url} />
           </div>
           <div className="col-md-4">
             <ClusterMemory store={store} elasticsearch_url={this.props.elasticsearch_url} />

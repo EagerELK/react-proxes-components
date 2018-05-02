@@ -1,24 +1,27 @@
 import React from 'react';
 import BigNumber from './big-number';
+import numeral from 'numeral';
 
 class ClusterAvailableSpace extends BigNumber {
-  calculateValue(source) {
-    let total;
-    try {
-      total = 0;
-      for (let i in source) {
-        let value = this.getDescendantProp(source[i], this.props.field);
-        total += value;
-      }
-    } catch (e) {
-      console.log(e);
-    }
-    return total;
+  dataDidLoad(response) {
+    let available = response.data.nodes.fs.available_in_bytes;
+    let total = response.data.nodes.fs.total_in_bytes;
+    let percentage = available / total * 100;
+
+    let colour = 'success';
+    if (percentage < 10) { colour = 'danger'; } else
+    if (percentage < 25) { colour = 'warning'; }
+
+    console.log(colour);
+    this.setState({
+      data: response.data,
+      panel_type: colour,
+    });
   }
 
   getSecondary() {
     try {
-      return 'On ' + this.state.data._nodes.total + ' nodes';
+      return numeral(this.state.data.indices.store.size_in_bytes).format(this.props.format) + ' Primary Storage Used';
     } catch (e) {
       console.log(e);
     }
@@ -28,9 +31,8 @@ class ClusterAvailableSpace extends BigNumber {
 
 ClusterAvailableSpace.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
-  data_path: '/_nodes/stats',
-  source: 'nodes',
-  field: 'fs.total.available_in_bytes',
+  data_path: '/_cluster/stats',
+  source: 'nodes.fs.available_in_bytes',
   format: '0.0b',
   panel_type: 'info',
   title: 'Available Space',

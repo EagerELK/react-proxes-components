@@ -3,13 +3,26 @@ import BigNumber from './big-number';
 import numeral from 'numeral';
 
 class Storage extends BigNumber {
+  dataDidLoad(response) {
+    let available = response.data.nodes.fs.available_in_bytes;
+    let total = response.data.nodes.fs.total_in_bytes;
+    let percentage = available / total * 100;
+
+    let colour = 'green';
+    if (percentage < 10) { colour = 'red'; } else
+    if (percentage < 25) { colour = 'yellow'; }
+
+    this.setState({
+      data: response.data,
+      panel_type: colour,
+    });
+  }
+
   getSecondary() {
-    let number = 0;
     try {
-      number = this.state.data._all.total.store.size_in_bytes;
-      return numeral(number).format(this.props.format) + ' including Replicas';
+      return this.state.percentage + ' available';
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
     return 'Calculating...';
   }
@@ -17,12 +30,12 @@ class Storage extends BigNumber {
 
 Storage.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
-  data_path: '/_stats',
-  source: '_all.primaries.store.size_in_bytes',
+  data_path: '/_cluster/stats',
+  source: 'indices.store.size_in_bytes',
   format: '0.0b',
-  icon: 'fa-hdd-o',
-  panel_type: 'primary',
+  panel_type: 'info',
   title: 'Storage',
+  icon: 'fa-hdd-o',
 };
 
 export default Storage;

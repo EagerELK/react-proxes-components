@@ -3,19 +3,23 @@ import PropTypes from 'prop-types';
 import BigNumber from './big-number';
 
 class Health extends BigNumber {
-  loadData() {
-    super.loadData();
-    switch (this.state.data.status) {
+  dataDidLoad(response) {
+    var colour = 'yellow';
+    switch (response.data.status) {
       case 'green':
-        this.setState({ panel_type: 'green' });
+        colour = 'green';
         break;
       case 'yellow':
-        this.setState({ panel_type: 'yellow' });
+        colour = 'yellow';
         break;
       case 'red':
-        this.setState({ panel_type: 'red' });
+        colour = 'red';
         break;
     }
+    this.setState({
+      data: response.data,
+      panel_type: colour,
+    });
   }
 
   getValue() {
@@ -48,7 +52,7 @@ Health.propTypes = {
 
 Health.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
-  data_path: '/_cluster/health',
+  data_path: '/_cluster/stats',
   source: 'status',
   title: 'Health',
   icon: 'fa-heart',
