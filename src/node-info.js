@@ -31,7 +31,8 @@ class NodeInfo extends ESTable {
 
 NodeInfo.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
-  data_path: '/_nodes'
+  data_path: '/_nodes',
+  panel_type: 'default',
 };
 
 export default NodeInfo;

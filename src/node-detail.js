@@ -28,7 +28,8 @@ class NodeDetail extends ESTable {
 
 NodeDetail.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
-  data_path: '/_nodes/stats'
+  data_path: '/_nodes/stats',
+  panel_type: 'default',
 };
 
 export default NodeDetail;

@@ -34,7 +34,8 @@ class IndexList extends ESTable {
 
 IndexList.defaultProps = {
   elasticsearch_url: 'http://localhost:9200',
-  data_path: '/_stats'
+  data_path: '/_stats',
+  panel_type: 'default',
 };
 
 export default IndexList;

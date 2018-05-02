@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import UpdateFooter from './update-footer';
 import ESStore from './es-store';
 
@@ -51,7 +52,14 @@ class ESPanel extends React.Component {
 
   getHeading() {
     return (
-      <h4><i className="fa fa-question"></i> Heading</h4>
+      <div className="row">
+        <div className="col-xs-3">
+          <i className={this.props.icon + " fa fa-5x"}></i>
+        </div>
+        <div className="col-xs-9 text-right">
+          <h2>{this.props.title}</h2>
+        </div>
+      </div>
     );
   }
 
@@ -69,7 +77,7 @@ class ESPanel extends React.Component {
 
   render() {
     return (
-      <div className="panel panel-default">
+      <div className={"panel panel-" + (this.state.panel_type ? this.state.panel_type : this.props.panel_type)}>
         <div className="panel-heading">
           {this.getHeading()}
         </div>
@@ -82,8 +90,16 @@ class ESPanel extends React.Component {
   }
 }
 
+ESPanel.propTypes = {
+  elasticsearch_url: PropTypes.string,
+  panel_type: PropTypes.string,
+  icon: PropTypes.string,
+}
+
 ESPanel.defaultProps = {
-  elasticsearch_url: 'http://localhost:9200'
+  elasticsearch_url: 'http://localhost:9200',
+  panel_type: 'default',
+  icon: 'fa-question',
 };
 
 export default ESPanel;
