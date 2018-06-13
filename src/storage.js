@@ -14,13 +14,14 @@ class Storage extends BigNumber {
 
     this.setState({
       data: response.data,
+      percentage: percentage,
       panel_type: colour,
     });
   }
 
   getSecondary() {
     try {
-      return this.state.percentage + ' available';
+      return this.state.percentage.toFixed(2) + '% available';
     } catch (e) {
       console.log(e);
     }

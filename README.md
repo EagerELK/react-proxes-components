@@ -40,6 +40,16 @@ var ProxesComponents = require('react-proxes-components');
 
 To build, watch and serve the examples (which will also watch the component source), run `npm start`. If you just want to watch changes to `src` and rebuild `lib`, run `npm run watch` (this is useful if you are working with `npm link`).
 
+
+## Release
+
+```bash
+gulp bump
+gulp build:dist
+git commit -am "chore: Release new version"
+gulp release
+```
+
 ## License
 
 Copyright (c) Jade IT cc 2016.
