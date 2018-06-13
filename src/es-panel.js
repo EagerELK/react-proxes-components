@@ -59,7 +59,7 @@ class ESPanel extends React.Component {
           <i className={this.props.icon + " fa fa-5x"}></i>
         </div>
         <div className="col-xs-9 text-right">
-          <h2>{this.props.title}</h2>
+          <h2 className="text-nowrap">{this.props.title}</h2>
         </div>
       </div>
     );
