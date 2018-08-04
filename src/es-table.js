@@ -142,8 +142,8 @@ class ESTable extends ESPanel {
               {
                 fillRange(1, this.numPages()).map((i) => {
                   return (
-                    <li className={(this.state.currentPage === i) ? 'active' : ''}>
-                      <a href="javascript:void(0)" onClick={(e) => this.gotoPage(i, e)} key={i}>{i}</a>
+                    <li className={(this.state.currentPage === i) ? 'active' : ''} key={i}>
+                      <a href="javascript:void(0)" onClick={(e) => this.gotoPage(i, e)}>{i}</a>
                     </li>
                   );
                 })
