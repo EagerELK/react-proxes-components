@@ -1,0 +1,13 @@
+version: '3'
+services:
+  react-proxes-components:
+    image: node:6-alpine
+    ports:
+      - '8000:8000'
+      - '35729:35729'
+    volumes:
+    - ./:/code
+    command: >
+      sh -c "cd code &&
+             npm install &&
+             npm start"

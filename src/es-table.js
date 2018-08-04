@@ -4,12 +4,19 @@ import numeral from 'numeral';
 import moment from 'moment';
 import naturalCompare from 'string-natural-compare';
 
+const fillRange = (start, end) => {
+  return Array(end - start + 1).fill().map((item, index) => start + index);
+};
+
 class ESTable extends ESPanel {
   constructor(props) {
     super(props);
     this.state.sort_by = 'name';
     this.state.sort_order = 'asc';
     this.state.search = '';
+
+    this.state.currentPage = 1;
+    this.state.sizePerPage = 10;
   }
 
   columnHeader(column) {
@@ -77,14 +84,20 @@ class ESTable extends ESPanel {
     });
   }
 
+  pageRows(row, index) {
+    let currentStartItem = this.state.sizePerPage * (this.state.currentPage - 1);
+    return index >= (currentStartItem) && index < (currentStartItem) + this.state.sizePerPage;
+  }
+
   getBody() {
     var rows = this.getRows()
       .filter(this.findRow.bind(this))
-      .sort(this.compareRows.bind(this));
+      .sort(this.compareRows.bind(this))
+      .filter(this.pageRows.bind(this));
 
     rows = rows.map(this.getRowItem.bind(this));
 
-    if (rows.length == 0) rows = this.getAlternateBody();
+    if (rows.length === 0) rows = this.getAlternateBody();
 
     return (
       <div>
@@ -107,6 +120,43 @@ class ESTable extends ESPanel {
             {rows}
           </tbody>
         </table>
+
+        <select className="form-control" value={this.state.sizePerPage} onChange={this.changePageSize.bind(this)}>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="9999">All</option>
+        </select>
+
+        {
+          // inline conditional rendering (https://reactjs.org/docs/conditional-rendering.html)
+          this.numPages() > 1  &&
+          <nav aria-label="Page navigation">
+            <ul className="pagination">
+              <li className={(this.state.currentPage == 1) ? 'disabled' : ''}>
+                <a href="javascript:void(0)" aria-label="Previous" onClick={this.prevPage.bind(this)}>
+                  <span aria-hidden="true">Prev</span>
+                </a>
+              </li>
+
+              {
+                fillRange(1, this.numPages()).map((i) => {
+                  return (
+                    <li className={(this.state.currentPage === i) ? 'active' : ''}>
+                      <a href="javascript:void(0)" onClick={(e) => this.gotoPage(i, e)} key={i}>{i}</a>
+                    </li>
+                  );
+                })
+              }
+
+              <li className={(this.state.currentPage == this.numPages()) ? 'disabled' : ''}>
+                <a href="javascript:void(0)" aria-label="Next" onClick={this.nextPage.bind(this)}>
+                  <span aria-hidden="true">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        }
       </div>
     );
   }
@@ -135,13 +185,48 @@ class ESTable extends ESPanel {
   }
 
   sortBy(event) {
-    if (this.state.sort_by == event.target.dataset['sort']) {
-      this.state.sort_order = this.state.sort_order == 'asc' ? 'desc' : 'asc';
+    if (this.state.sort_by === event.target.dataset['sort']) {
+      this.state.sort_order = this.state.sort_order === 'asc' ? 'desc' : 'asc';
     } else {
       this.state.sort_order = 'asc';
     }
     this.state.sort_by = event.target.dataset['sort'];
     this.forceUpdate();
+  }
+
+  prevPage() {
+    if (this.state.currentPage > 1) {
+      this.state.currentPage--;
+      this.forceUpdate();
+    }
+  }
+
+  nextPage() {
+    if (this.state.currentPage < this.numPages()) {
+      this.state.currentPage++;
+      this.forceUpdate();
+    }
+  }
+
+  gotoPage(page, event) {
+    if (page > 0 && page <= this.numPages()) {
+      this.state.currentPage = page;
+      this.forceUpdate();
+    }
+  }
+
+  changePageSize(event) {
+    this.state.sizePerPage = parseInt(event.target.value);
+
+    if (this.state.currentPage > this.numPages()) {
+      this.state.currentPage = this.numPages();
+    }
+
+    this.forceUpdate();
+  }
+
+  numPages() {
+    return Math.ceil(this.getRows().length / this.state.sizePerPage);
   }
 }
 
