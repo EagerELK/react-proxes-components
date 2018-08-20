@@ -121,41 +121,46 @@ class ESTable extends ESPanel {
           </tbody>
         </table>
 
-        <select className="form-control" value={this.state.sizePerPage} onChange={this.changePageSize.bind(this)}>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="9999">All</option>
-        </select>
-
         {
           // inline conditional rendering (https://reactjs.org/docs/conditional-rendering.html)
           this.numPages() > 1  &&
-          <nav aria-label="Page navigation">
-            <ul className="pagination">
-              <li className={(this.state.currentPage == 1) ? 'disabled' : ''}>
-                <a href="javascript:void(0)" aria-label="Previous" onClick={this.prevPage.bind(this)}>
-                  <span aria-hidden="true">Prev</span>
-                </a>
-              </li>
+          <div className="col-md-3">
+            <nav aria-label="Page navigation">
+              <div className="row">
+                <div className="col-md-3">
+                  <select className="form-control" value={this.state.sizePerPage} onChange={this.changePageSize.bind(this)}>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="9999">All</option>
+                  </select>
+                </div>
+                <ul className="pagination">
+                  <li className={(this.state.currentPage == 1) ? 'disabled' : ''}>
+                    <a href="javascript:void(0)" aria-label="Previous" onClick={this.prevPage.bind(this)}>
+                      <span aria-hidden="true">Prev</span>
+                    </a>
+                  </li>
 
-              {
-                fillRange(1, this.numPages()).map((i) => {
-                  return (
-                    <li className={(this.state.currentPage === i) ? 'active' : ''} key={i}>
-                      <a href="javascript:void(0)" onClick={(e) => this.gotoPage(i, e)}>{i}</a>
-                    </li>
-                  );
-                })
-              }
+                  {
+                    fillRange(1, this.numPages()).map((i) => {
+                      return (
+                        <li className={(this.state.currentPage === i) ? 'active' : ''} key={i}>
+                          <a href="javascript:void(0)" onClick={(e) => this.gotoPage(i, e)}>{i}</a>
+                        </li>
+                      );
+                    })
+                  }
 
-              <li className={(this.state.currentPage == this.numPages()) ? 'disabled' : ''}>
-                <a href="javascript:void(0)" aria-label="Next" onClick={this.nextPage.bind(this)}>
-                  <span aria-hidden="true">Next</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+                  <li className={(this.state.currentPage == this.numPages()) ? 'disabled' : ''}>
+                    <a href="javascript:void(0)" aria-label="Next" onClick={this.nextPage.bind(this)}>
+                      <span aria-hidden="true">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
         }
       </div>
     );
