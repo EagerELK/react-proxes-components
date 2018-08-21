@@ -72,7 +72,8 @@ class ESTable extends ESPanel {
 
     return this.props.children.some((column) => {
       var value = this.getDescendantProp(row, column.props.source);
-      return value.toString().indexOf(search) !== -1;
+      // toLowerCase to make search case insensitive
+      return value.toString().toLowerCase().indexOf(search) !== -1;
     });
   }
 

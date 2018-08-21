@@ -4,6 +4,7 @@ import Storage from './storage';
 import Documents from './documents';
 import Nodes from './nodes';
 import IndexList from './index-list';
+import ShardList from './shard-list';
 import NodeInfo from './node-info';
 import NodeDetail from './node-detail';
 import ESStore from './es-store';
@@ -78,6 +79,16 @@ class ProxesComponents extends React.Component {
               <TableColumn name="Size" source="primaries.store.size_in_bytes" format="size"/>
               <TableColumn name="Segments" source="primaries.segments.count" format="number"/>
             </IndexList>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <ShardList store={store} elasticsearch_url={this.props.elasticsearch_url}>
+              <TableColumn name="Index" source="index"/>
+              <TableColumn name="Node" source="node"/>
+              <TableColumn name="State" source="state"/>
+              <TableColumn name="Primary" source="prirep_label"/>
+            </ShardList>
           </div>
         </div>
       </div>

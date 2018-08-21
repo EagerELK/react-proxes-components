@@ -9,7 +9,7 @@ class IndexList extends ESTable {
   }
 
   getRows() {
-    var indices = []
+    var indices = [];
     try {
       indices = this.state.data.indices;
     } catch (e) {
